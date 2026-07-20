@@ -101,8 +101,8 @@ onBeforeUnmount(() => window.removeEventListener('hashchange', syncRoute))
             <h1>Amicro — Micro-transitions</h1>
             <p>A Vue 3 port of the original interaction catalog, rebuilt with Motion for Vue, TypeScript and compositor-friendly animation primitives.</p>
             <div class="hero-actions">
-              <motion.a href="https://github.com/weepwood/Amicro-Vue" target="_blank" :whileHover="{ scale: 1.04, y: -1 }" :whilePress="{ scale: .98 }"><GithubIcon :size="16" /> GitHub Repo</motion.a>
-              <motion.button :whileHover="{ scale: 1.04, y: -1 }" :whilePress="{ scale: .98 }" @click="browseCatalog"><ArrowDownAZ :size="15" /> Browse components</motion.button>
+              <motion.a href="https://github.com/weepwood/Amicro-Vue" target="_blank" :whileHover="{ scale: 1.04 }" :whilePress="{ scale: .98 }"><GithubIcon :size="16" /> GitHub Repo</motion.a>
+              <motion.button :whileHover="{ scale: 1.04 }" :whilePress="{ scale: .98 }" @click="browseCatalog"><ArrowDownAZ :size="15" /> Browse components</motion.button>
             </div>
           </section>
 
@@ -125,16 +125,36 @@ onBeforeUnmount(() => window.removeEventListener('hashchange', syncRoute))
 
             <LayoutGroup>
               <motion.div v-if="tab === 'buttons'" layout class="component-grid" :class="`layout-${layout}`">
-                <motion.article v-for="button in sortedButtons" :key="button.id" layout class="component-cell" :whileHover="{ y: layout === 'matrix' ? -2 : -4 }">
-                  <AnimatedButton :config="button" :layout-mode="layout" :theme="theme" />
-                  <div v-if="layout !== 'matrix'" class="cell-meta"><span>{{ button.label }}</span><button @click="copy(getButtonCode(button), button.label)">Copy Vue</button></div>
-                </motion.article>
+                <motion.div
+                  v-for="button in sortedButtons"
+                  :key="button.id"
+                  layout
+                  class="component-item"
+                  :transition="{ type: 'spring', stiffness: 400, damping: 25 }"
+                >
+                  <article v-if="layout === 'grid'" class="component-cell">
+                    <div class="cell-preview">
+                      <AnimatedButton :config="button" :layout-mode="layout" :theme="theme" />
+                    </div>
+                    <div class="cell-footer">
+                      <div><strong>{{ button.label }}</strong><span>{{ button.interactionType.replace('-', ' ') }} interaction</span></div>
+                      <button aria-label="Copy interaction code" @click="copy(getButtonCode(button), button.label)">Copy</button>
+                    </div>
+                  </article>
+                  <AnimatedButton v-else :config="button" :layout-mode="layout" :theme="theme" />
+                </motion.div>
               </motion.div>
 
               <motion.div v-else layout class="card-grid">
-                <motion.article v-for="card in sortedCards" :key="card.id" layout class="card-cell" :whileHover="{ y: -5 }">
-                  <CardDemo :config="card" :theme="theme" />
-                  <div class="card-copy"><div><strong>{{ card.label }}</strong><p>{{ card.description }}</p></div><button @click="copyCard(card)">Copy Vue</button></div>
+                <motion.article
+                  v-for="card in sortedCards"
+                  :key="card.id"
+                  layout
+                  class="card-cell"
+                  :transition="{ type: 'spring', stiffness: 400, damping: 25 }"
+                >
+                  <div class="card-preview"><CardDemo :config="card" :theme="theme" /></div>
+                  <div class="card-copy"><div><strong>{{ card.label }}</strong><p>{{ card.description }}</p></div><button @click="copyCard(card)">Copy</button></div>
                 </motion.article>
               </motion.div>
             </LayoutGroup>
