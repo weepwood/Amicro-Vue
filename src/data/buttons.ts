@@ -1,11 +1,12 @@
 import type { Component } from 'vue'
 import {
-  Apple, ArrowRight, Github, Star, Cloud, CloudUpload, Copy, Check, Heart, Link, Send,
+  Apple, ArrowRight, Star, Cloud, CloudUpload, Copy, Check, Heart, Link, Send,
   Play, Pause, Settings, Trash2, Bell, BellRing, Search, X, Moon, Sun, Mic, MicOff,
   Video, VideoOff, Volume2, VolumeX, Lock, Unlock, Folder, FolderOpen, Eye, EyeOff,
   Bookmark, ThumbsUp, Download, Upload, User, UserCheck, Pen, Wifi, WifiOff, Battery,
   BatteryCharging, Maximize, Minimize, RefreshCw,
 } from '@lucide/vue'
+import GithubIcon from '../components/GithubIcon.vue'
 
 export type InteractionType =
   | 'slide-arrow' | 'sparkle' | 'morph' | 'pulse' | 'rotate' | 'shake' | 'ring'
@@ -23,7 +24,7 @@ export interface ButtonConfig {
 
 export const buttonsData: ButtonConfig[] = [
   { id: '1', label: 'Download for Mac', icon1: Apple, icon2: ArrowRight, interactionType: 'slide-arrow' },
-  { id: '2', label: 'Star on GitHub', icon1: Github, icon2: Star, interactionType: 'sparkle', accent: '#facc15' },
+  { id: '2', label: 'Star on GitHub', icon1: GithubIcon, icon2: Star, interactionType: 'sparkle', accent: '#facc15' },
   { id: '3', label: 'Deploy App', icon1: Cloud, icon2: CloudUpload, interactionType: 'morph', accent: '#60a5fa' },
   { id: '4', label: 'Copy Hash', icon1: Copy, icon2: Check, interactionType: 'morph', accent: '#34d399', persistent: true },
   { id: '5', label: 'Sponsor', icon1: Heart, interactionType: 'pulse', accent: '#ec4899' },
@@ -54,7 +55,7 @@ export const buttonsData: ButtonConfig[] = [
   { id: '30', label: 'Favorite', icon1: Star, icon2: Star, interactionType: 'color-morph', accent: '#facc15' },
   { id: '31', label: 'Glare Shine', icon1: Star, interactionType: 'glare' },
   { id: '32', label: 'Text Reveal', icon1: ArrowRight, interactionType: 'text-reveal' },
-  { id: '33', label: 'Magnetic Field', icon1: Github, interactionType: 'magnetic' },
+  { id: '33', label: 'Magnetic Field', icon1: GithubIcon, interactionType: 'magnetic' },
   { id: '34', label: 'Expand Ring', icon1: Link, interactionType: 'expand-ring' },
   { id: '35', label: 'Focus Blur Links', icon1: Link, interactionType: 'focus-blur' },
 ]

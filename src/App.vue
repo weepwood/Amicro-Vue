@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { AnimatePresence, LayoutGroup, MotionConfig, motion } from 'motion-v'
-import { ArrowDownAZ, Github, Grid2X2, LayoutGrid, List, Menu, Moon, Sparkles, Sun, X } from '@lucide/vue'
+import { ArrowDownAZ, Grid2X2, LayoutGrid, List, Menu, Moon, Sparkles, Sun, X } from '@lucide/vue'
+import GithubIcon from './components/GithubIcon.vue'
 import AnimatedButton from './components/AnimatedButton.vue'
 import CardDemo from './components/CardDemo.vue'
 import CliPage from './components/CliPage.vue'
@@ -79,7 +80,7 @@ onBeforeUnmount(() => window.removeEventListener('hashchange', syncRoute))
             <button :class="{ active: page === 'skills' }" @click="navigate('skills')">Motion Anatomy</button>
           </nav>
           <div class="nav-actions">
-            <a class="round-action repo-action" href="https://github.com/weepwood/Amicro-Vue" target="_blank" rel="noreferrer"><Github :size="16" /><span>{{ stars ?? 'Star' }}</span></a>
+            <a class="round-action repo-action" href="https://github.com/weepwood/Amicro-Vue" target="_blank" rel="noreferrer"><GithubIcon :size="16" /><span>{{ stars ?? 'Star' }}</span></a>
             <button class="round-action" title="Toggle theme and copy Vue code" @click="toggleTheme"><component :is="theme === 'dark' ? Sun : Moon" :size="16" /></button>
             <button class="round-action mobile-toggle" @click="mobileMenu = !mobileMenu"><component :is="mobileMenu ? X : Menu" :size="17" /></button>
           </div>
@@ -100,7 +101,7 @@ onBeforeUnmount(() => window.removeEventListener('hashchange', syncRoute))
             <h1>Amicro — Micro-transitions</h1>
             <p>A Vue 3 port of the original interaction catalog, rebuilt with Motion for Vue, TypeScript and compositor-friendly animation primitives.</p>
             <div class="hero-actions">
-              <motion.a href="https://github.com/weepwood/Amicro-Vue" target="_blank" :whileHover="{ scale: 1.04, y: -1 }" :whilePress="{ scale: .98 }"><Github :size="16" /> GitHub Repo</motion.a>
+              <motion.a href="https://github.com/weepwood/Amicro-Vue" target="_blank" :whileHover="{ scale: 1.04, y: -1 }" :whilePress="{ scale: .98 }"><GithubIcon :size="16" /> GitHub Repo</motion.a>
               <motion.button :whileHover="{ scale: 1.04, y: -1 }" :whilePress="{ scale: .98 }" @click="browseCatalog"><ArrowDownAZ :size="15" /> Browse components</motion.button>
             </div>
           </section>
