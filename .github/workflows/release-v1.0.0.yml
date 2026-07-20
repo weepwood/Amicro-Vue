@@ -1,0 +1,52 @@
+name: Release v1.0.0
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/release-v1.0.0.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Typecheck and build
+        run: npm run build
+
+      - name: Package production files
+        run: |
+          tar -czf amicro-vue-v1.0.0.tar.gz -C dist .
+          (cd dist && zip -qr ../amicro-vue-v1.0.0.zip .)
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: v1.0.0
+        run: |
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$TAG" \
+              amicro-vue-v1.0.0.tar.gz \
+              amicro-vue-v1.0.0.zip \
+              --clobber \
+              --repo "$GITHUB_REPOSITORY"
+          else
+            gh release create "$TAG" \
+              amicro-vue-v1.0.0.tar.gz \
+              amicro-vue-v1.0.0.zip \
+              --target "$GITHUB_SHA" \
+              --title "Amicro Vue v1.0.0" \
+              --generate-notes \
+              --latest \
+              --repo "$GITHUB_REPOSITORY"
+          fi
