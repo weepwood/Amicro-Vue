@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches: [main, feat/vue-motion-port]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        shell: bash
+        run: |
+          git clone --quiet --depth 1 --branch "${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}" "https://github.com/${GITHUB_REPOSITORY}.git" .
+      - name: Install dependencies
+        run: npm install --silent --no-audit --no-fund
+      - name: Typecheck and build
+        run: npm run build
